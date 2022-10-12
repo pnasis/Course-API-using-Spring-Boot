@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
+@Transactional
 public class LessonService { //when the applications starts it creates an instance of this service, that other classes can use.
 	
 	@Autowired  //dependency injection
@@ -28,7 +31,15 @@ public class LessonService { //when the applications starts it creates an instan
 	}
 
 	public void updateLesson(Lesson lesson) {
-		lessonRepository.save(lesson);
+		Optional<Lesson> optionalLesson = lessonRepository.findById(lesson.getId());
+		if(optionalLesson.isPresent())
+		{
+			optionalLesson.get().setId(lesson.getId());
+			optionalLesson.get().setName(lesson.getName());
+			optionalLesson.get().setDescription(lesson.getDescription());
+			lessonRepository.save(optionalLesson.get());
+		}
+		else throw new RuntimeException("Lesson Not Found");
 	}
 
 	public void deleteLesson(String id) {
