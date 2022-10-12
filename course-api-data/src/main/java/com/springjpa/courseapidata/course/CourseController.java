@@ -2,7 +2,11 @@ package com.springjpa.courseapidata.course;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,34 +15,35 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springjpa.courseapidata.topic.Topic;
 
 @RestController
+@RequestMapping("/topics/{topicId}/courses")
 public class CourseController {
 
 	@Autowired
 	private CourseService courseService; //it will take (inject) the dependency that have already been created.
 	
-	@RequestMapping("/topics/{id}/courses")
-	public List<Course> getAllCourses(@PathVariable String id) {
-		return courseService.getAllCourses(id);
+	@GetMapping
+	public List<Course> getAllCourses(@PathVariable String topicId) {
+		return courseService.getAllCourses(topicId);
 	}
 	
-	@RequestMapping("/topics/{topicId}/courses/{id}")
+	@GetMapping("/{id}")
 	public Course getCourse(@PathVariable String id) {
 		return courseService.getCourse(id);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="/topics/{topicId}/courses")
+	@PostMapping
 	public void addCourse(@RequestBody Course course, @PathVariable String topicId) { //our request payload will contain the body of the post request.
 		course.setTopic(new Topic(topicId, "", ""));
 		courseService.addCourse(course);
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT, value="/topics/{topicId}/courses/{id}")
+	@PutMapping("/{id}")
 	public void updateCourse(@RequestBody Course course, @PathVariable String topicId, @PathVariable String id) { //our request payload will contain the body of the post request.
 		course.setTopic(new Topic(topicId, "", ""));
 		courseService.updateCourse(course);
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE, value="/topics/{topicId}/courses/{id}")
+	@DeleteMapping("/{id}")
 	public void deleteCourse(@PathVariable String id) {
 		courseService.deleteCourse(id);
 	}
