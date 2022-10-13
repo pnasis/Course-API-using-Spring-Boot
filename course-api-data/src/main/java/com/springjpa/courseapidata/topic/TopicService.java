@@ -33,7 +33,6 @@ public class TopicService { //when the applications starts it creates an instanc
 		Optional<Topic> optionalTopic = topicRepository.findById(id);
 		if(optionalTopic.isPresent())
 		{
-			optionalTopic.get().setId(topic.getId());
 			optionalTopic.get().setName(topic.getName());
 			optionalTopic.get().setDescription(topic.getDescription());
 			topicRepository.save(optionalTopic.get());

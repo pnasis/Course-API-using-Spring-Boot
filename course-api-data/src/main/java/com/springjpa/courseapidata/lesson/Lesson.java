@@ -2,17 +2,18 @@ package com.springjpa.courseapidata.lesson;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
+import org.hibernate.annotations.GenericGenerator;
 import com.springjpa.courseapidata.course.Course;
+
 
 @Entity
 public class Lesson {
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(generator = "uuid2")
+	@GenericGenerator(name= "uuid2", strategy= "org.hibernate.id.UUIDGenerator")
 	private String id;
 	private String name;
 	private String description;

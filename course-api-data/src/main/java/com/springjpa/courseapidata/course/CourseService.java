@@ -34,7 +34,6 @@ public class CourseService { //when the applications starts it creates an instan
 		Optional<Course> optionalCourse = courseRepository.findById(course.getId());
 		if(optionalCourse.isPresent())
 		{
-			optionalCourse.get().setId(course.getId());
 			optionalCourse.get().setName(course.getName());
 			optionalCourse.get().setDescription(course.getDescription());
 			courseRepository.save(optionalCourse.get());

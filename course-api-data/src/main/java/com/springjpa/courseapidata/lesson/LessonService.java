@@ -34,7 +34,6 @@ public class LessonService { //when the applications starts it creates an instan
 		Optional<Lesson> optionalLesson = lessonRepository.findById(lesson.getId());
 		if(optionalLesson.isPresent())
 		{
-			optionalLesson.get().setId(lesson.getId());
 			optionalLesson.get().setName(lesson.getName());
 			optionalLesson.get().setDescription(lesson.getDescription());
 			lessonRepository.save(optionalLesson.get());
