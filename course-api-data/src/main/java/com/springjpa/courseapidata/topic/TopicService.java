@@ -1,9 +1,10 @@
 package com.springjpa.courseapidata.topic;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,10 +15,8 @@ public class TopicService { //when the applications starts it creates an instanc
 	@Autowired  //dependency injection
 	private TopicRepository topicRepository;
 	
-	public List<Topic> getAllTopics() {
-		List<Topic> topics = new ArrayList<>();
-		topicRepository.findAll().forEach(topics::add); //for each element that i iterate i add it in the arraylist.
-		return topics;
+	public Page<Topic> getAllTopics(int offset , int pageSize) {
+		return topicRepository.findAll(PageRequest.of(offset, pageSize, Sort.Direction.ASC, "name")); //for each element that i iterate i add it in the arraylist.
 	}
 	
 	public Topic getTopic(String id) {

@@ -1,6 +1,5 @@
 package com.springjpa.courseapidata.lesson;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,8 @@ public class LessonService { //when the applications starts it creates an instan
 	@Autowired  //dependency injection
 	private LessonRepository lessonRepository;
 	
-	public List<Lesson> getAllLessons(String courseId) {
-		List<Lesson> lessons = new ArrayList<>();
-		lessonRepository.findByCourseId(courseId).forEach(lessons::add); //for each element that i iterate i add it in the arraylist.
-		return lessons;
+	public List<Lesson> getAllLessons(String courseId) {		
+		return lessonRepository.findByCourseId(courseId); //for each element that i iterate i add it in the arraylist.;
 	}
 	
 	public Lesson getLesson(String id) {
