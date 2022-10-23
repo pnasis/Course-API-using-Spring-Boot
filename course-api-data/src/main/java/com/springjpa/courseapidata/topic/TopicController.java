@@ -1,7 +1,7 @@
 package com.springjpa.courseapidata.topic;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +18,9 @@ public class TopicController {
 	@Autowired
 	private TopicService topicService; //it will take (inject) the dependency that have already been created.
 	
-	@GetMapping
-	public List<Topic> getAllTopics() {
-		return topicService.getAllTopics();
+	@GetMapping("/{offset}/{pageSize}")
+	public Page<Topic> getAllTopics(@PathVariable int offset, @PathVariable int pageSize) {
+		return topicService.getAllTopics(offset, pageSize);
 	}
 	
 	@GetMapping("/{id}")
